@@ -4,10 +4,11 @@ let redis = require('redis');
 const client = redis.createClient();
 client.on('error', (err) => console.log('Redis Client Error', err));
 
-const express = require('express')
-const app = express()
-const port = 3001 // because frontend is on 3000
-const ACAO_VALUE = 'https://simple-weather-app-3d551.web.app'
+const express = require('express');
+const app = express();
+
+const port = 3001 // because frontend is on 3001
+//const ACAO_VALUE = 'https://simple-weather-app-3d551.web.app'
 
 app.get('/weather', async (req, res) => {
     res.header('Access-Control-Allow-Origin', "*");
@@ -15,7 +16,7 @@ app.get('/weather', async (req, res) => {
     await client.connect();
 
     // get from redis
-    const weather = await client.get('weather');
+    const weather = await client.get('todaysWeather');
 
     console.log(weather);
 
@@ -26,10 +27,14 @@ app.get('/weather', async (req, res) => {
         client.quit()
     ]); // ['PONG', null, 'OK']
 
-
    return res.send(JSON.parse(weather));
 
 })
+
+
+
+
+
 
 /*
 app.get('/city', async (req, res) => {

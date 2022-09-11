@@ -1,6 +1,6 @@
 let CronJob = require('cron').CronJob;
 
-const fetchData = require('./tasks/fetch.js');
+const fetchData = require('./fetch.js');
 
 new CronJob(
     '* * * * *', // cron schedule expression: at every minute
