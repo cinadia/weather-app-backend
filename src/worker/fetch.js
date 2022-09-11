@@ -1,8 +1,11 @@
 // TODO: need to install node-fetch
-import fetch from 'node-fetch';
-import redis from 'redis';
-// let fetch = require('node-fetch');
-// let redis = require('redis');
+//import fetch from 'node-fetch';
+// import redis from 'redis';
+let redis = require('redis');
+//let fetch = require('node-fetch');
+// must dynamically import node-fetch version 3
+const fetch = (...args) =>
+    import('node-fetch').then(({ default: fetch }) => fetch(args));
 
 
 // create redis client
@@ -95,6 +98,10 @@ const getTodaysSummary = (fiveDayData = {}) => {
    todaysData['low'] = lowTemp;
 
    console.log(todaysData);
+
+   return todaysData;
+
+
 
    //console.log(descs);
 
